@@ -1,11 +1,5 @@
 
 
-
-
-
-
-
-
 /* styles.css */
 body {
     font-family: Arial, sans-serif;
@@ -21,7 +15,7 @@ body {
 
 .game-container {
     text-align: center;
-    background-color: #ffffff62;
+    background-color: #0000004b;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -99,7 +93,7 @@ body {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #000000e1;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -152,7 +146,7 @@ body {
     
     margin-top: 5px;
     font-size: 20px;
-    color: #1a429a;
+    color: #ffb200;
     font-weight: bold;
     font-family: serif;
     border: 3px ridge rgba(0, 0, 0, .3);
@@ -197,9 +191,6 @@ h2{
                  1px  1px 0 #000;
 }
 
-a{
-   color: #ffffff;
-}
 
 .text1{
     margin-top: 5px;
@@ -214,4 +205,6 @@ a{
                 -1px  1px 0 #ff4900,
                  1px  1px 0 #ffb200;
 }
-
+a{
+   color: #ffffff;
+}
