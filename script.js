@@ -1,8 +1,3 @@
-
- 
- 
- 
- // script.js
 document.addEventListener('DOMContentLoaded', function() {
     const couponButton = document.getElementById('coupons');
     const menuButton = document.getElementById('menu');
@@ -22,13 +17,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const promoCodeElement = document.getElementById('promo-code');
     const expirationDateElement = document.getElementById('expiration-date');
 
-    let balance = parseInt(balanceElement.textContent);
+    let balance = 0;
+    const storedBalance = parseInt(localStorage.getItem('balance')) || 0;
+    const isFirstVisit = localStorage.getItem('isFirstVisit') === null;
+
+    // If it's the first visit, set balance to 0 and store the flag
+    if (isFirstVisit) {
+        localStorage.setItem('balance', 0);
+        localStorage.setItem('isFirstVisit', 'false');
+        balanceElement.textContent = 0;
+    } else {
+        balance = storedBalance;
+        balanceElement.textContent = balance;
+    }
+
     let cooldownTime = 100;
     let cooldownInterval;
 
     function updateBalance() {
         balance += 1;
         balanceElement.textContent = balance;
+        localStorage.setItem('balance', balance); // Save balance to localStorage
     }
 
     function startCooldown() {
@@ -68,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (balance >= 100) {
             balance -= 100;
             balanceElement.textContent = balance;
+            localStorage.setItem('balance', balance); // Save balance to localStorage
             const discount = Math.floor(Math.random() * 20) + 1;
             const promoCode = generateRandomPromoCode();
             const expirationDate = calculateExpirationDate();
@@ -130,9 +140,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-
-
-
-
-
