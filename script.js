@@ -31,8 +31,18 @@ document.addEventListener('DOMContentLoaded', function() {
         balanceElement.textContent = balance;
     }
 
-    let cooldownTime = 100;
+    const cooldownTime = 100;
     let cooldownInterval;
+
+    // Check and apply the remaining cooldown time on page load
+    const lastClickTimestamp = parseInt(localStorage.getItem('lastClickTimestamp'));
+    if (lastClickTimestamp) {
+        const currentTime = Date.now();
+        const elapsedTime = Math.floor((currentTime - lastClickTimestamp) / 1000);
+        if (elapsedTime < cooldownTime) {
+            startCooldown(cooldownTime - elapsedTime);
+        }
+    }
 
     function updateBalance() {
         balance += 1;
@@ -40,10 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('balance', balance); // Save balance to localStorage
     }
 
-    function startCooldown() {
+    function startCooldown(remainingTime) {
         clickableImage.classList.add('clicked');
         clickableImage.style.pointerEvents = 'none';
-        let remainingTime = cooldownTime;
 
         cooldownInterval = setInterval(function() {
             remainingTime--;
@@ -92,7 +101,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     clickableImage.addEventListener('click', function() {
         updateBalance();
-        startCooldown();
+        startCooldown(cooldownTime);
+        localStorage.setItem('lastClickTimestamp', Date.now()); // Save the current timestamp to localStorage
     });
 
     buyCouponButton.addEventListener('click', buyCoupon);
