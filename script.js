@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             balance -= 100;
             balanceElement.textContent = balance;
             localStorage.setItem('balance', balance); // Save balance to localStorage
-            const discount = Math.floor(Math.random() * 20) + 1;
+            const discount = Math.floor(Math.random() * 16) + 5;
             const promoCode = generateRandomPromoCode();
             const expirationDate = calculateExpirationDate();
             discountElement.textContent = discount;
