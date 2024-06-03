@@ -11,6 +11,7 @@ body {
     background-image: url(fon.jpg);
     background-size: contain;
     background-repeat: no-repeat;
+    background-color: #000000;
 }
 
 .game-container {
