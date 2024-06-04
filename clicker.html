@@ -7,7 +7,7 @@
     <style>
         body {
             width: auto;
-            background-image:url(fon2.jpg); 
+            background-image:url(fon1.jpg); 
             background-size: contain;
             background-repeat: no-repeat;
             background-color:#101C0F;
@@ -23,7 +23,7 @@
                 -1px  1px 0 #000,
                  1px  1px 0 #000;
         }
-       span{
+        span{
             font-size: 15px;
             color: #523630;
             font-weight: bold;
@@ -35,15 +35,18 @@
         }
         .content {
             text-align:left;
-            background-color:#000000b4
+            background-color:#000000b4;
         }
         img {
             margin-left:90px;
             width: 150px;
             height: auto;
-            
+            transition: transform 0.25s ease;
         }
-        a{
+        img.enlarged {
+            transform: scale(2);
+        }
+        a {
             margin-top: 5px;
             font-size: 15px;
             color: #ffffff;
@@ -53,44 +56,41 @@
                  1px -1px 0 #ff2bf1,
                 -1px  1px 0 #ff4900,
                  1px  1px 0 #ffb200;
-                 }
-        h3{
-             color:#c40008;
-             font-size: 15px;
-                 }
-                 
-        .span{
-            
-             color:#c21020;
-             font-size: 15px;
-             border: 3px ridge rgba(0, 0, 0, .3);
-        }         
-                 
-                 
+        }
+        h3 {
+            color: #c40008;
+            font-size: 15px;
+        }
+        .span {
+            color: #c21020;
+            font-size: 15px;
+            border: 3px ridge rgba(0, 0, 0, .3);
+        }
     </style>
 </head>
 <body>
     <div class="content">
-       <p> <span>Ինչպես հավաքել միավորներ ?</span><br>
-        
-        Յուրաքանչյուր 100 վարկյանը,<br> մեկ անգամ սեղմեք kitshunei նկարի և ստացեք 1 միավոր։<br>
-        
-        <span>Ինչի համար են միավորները ?</span>
-        <br>
-        Յուրաքանչյուր 100 միավորը կարող եք փոխանակել 1 զեղջի կտրոնի հետ։ 
-        <br>
-        <span>Ինչպես օգտագործել զեղջի կտրոները?</span>
-        <br>
-        Նկարեք կտրոնը հետևյալ կերպ 
-        և ուղարկեք մեր <a href="https://www.instagram.com/_kitsune__sushi_?igsh=ZGZtNjdoNWZ0eXQw">Instagram</a>-ին , այնուհետև ընտրեք ձեր նախընտած սեթ կամ ուտեստը որը կցանկանաք զեղջվի։<br></p><img src="Skrinshot.jpg" alt="">
-        
+        <p>
+            <span>Ինչպես հավաքել միավորներ ?</span><br>
+            Յուրաքանչյուր 100 վարկյանը,<br> մեկ անգամ սեղմեք kitshunei նկարի և ստացեք 1 միավոր։<br>
+            <span>Ինչի համար են միավորները ?</span><br>
+            Յուրաքանչյուր 100 միավորը կարող եք փոխանակել 1 զեղջի կտրոնի հետ։<br>
+            <span>Ինչպես օգտագործել զեղջի կտրոները?</span><br>
+            Նկարեք կտրոնը հետևյալ կերպ 
+            և ուղարկեք մեր <a href="https://www.instagram.com/_kitsune__sushi_?igsh=ZGZtNjdoNWZ0eXQw">Instagram</a>-ին , այնուհետև ընտրեք ձեր նախընտած սեթ կամ ուտեստը որը կցանկանաք զեղջվի։
+        </p>
+        <img id="screenshot" src="Skrinshot.jpg" alt="">
         <h3>Ուշադրություն</h3>
-       <span class="span">1.Կտրոնը վավեր է 3 օր։
-        <br>
-        2.Մեկ կտրոնով կարող եք գրանցել մեկ պատվեր։
-        <br>
-        3.Կտրոնը վերոնշյալ նկարին չհամապատասխանելու  դեպքում կհամարվի անվավեր։
+        <span class="span">
+            1.Կտրոնը վավեր է 3 օր։<br>
+            2.Մեկ կտրոնով կարող եք գրանցել մեկ պատվեր։<br>
+            3.Կտրոնը վերոնշյալ նկարին չհամապատասխանելու դեպքում կհամարվի անվավեր։
         </span>
     </div>
+    <script>
+        document.getElementById('screenshot').addEventListener('click', function() {
+            this.classList.toggle('enlarged');
+        });
+    </script>
 </body>
-</html>
+</html>չի 
