@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Update modal with selected set details
                     buySetModal.querySelector('.modal-content').innerHTML = `
                         <h2>Գնել Սեթը</h2>
-                        <p>1 զեղչի կտրոնը - <img src="coin.png" alt=""> 5000</p>
+                        <p>40% զեղչի կտրոնը - <img src="coin.png" alt=""> 1000</p>
                         <img src="${selectedSetImage}" alt="Selected Set" style="width: 150px; height: 150px;">
                         <button id="confirm-buy-set" class="confirm-button">Հաստատել</button>
                         <button class="close-button close-button-buy-set">&times;</button>
@@ -193,8 +193,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function confirmPurchase() {
-        if (balance >= 5000) {
-            balance -= 5000;
+        if (balance >= 1000) {
+            balance -= 1000;
             balanceElement.textContent = balance;
             localStorage.setItem('balance', balance); // Save balance to localStorage
 
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update modal content with purchase details
             buySetModal.querySelector('.modal-content').innerHTML = `
                 <h2>Կտրոն</h2>
-                <p>1 զեղչի կտրոնը - <img src="coin.png" alt=""> 5000</p>
+                <p>Դուք ունեք 40% զեղչ տվյալ սեթի համար </p>
                 <img src="${selectedSetImage}" alt="Purchased Set" style="width: 150px; height: 150px;">
                 <p>( Промо-код ): ${promoCode}</p>
                 <p>կտրոնի վավերականության ժամկետը: ${expirationDate}</p>
