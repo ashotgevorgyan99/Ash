@@ -5,9 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const couponModal = document.getElementById('coupon-modal');
     const linkModal = document.getElementById('link-modal');
     const menuModal = document.getElementById('menu-modal');
+    const buySetModal = document.getElementById('buy-set-modal');
     const closeButtonCoupon = document.querySelector('.close-button-coupon');
     const closeButtonLink = document.querySelector('.close-button-link');
     const closeButtonMenu = document.querySelector('.close-button-menu');
+    const closeButtonBuySet = document.querySelector('.close-button-buy-set');
     const clickableImage = document.getElementById('clickable-image');
     const balanceElement = document.getElementById('balance');
     const cooldownElement = document.getElementById('cooldown');
@@ -16,6 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const discountElement = document.getElementById('discount');
     const promoCodeElement = document.getElementById('promo-code');
     const expirationDateElement = document.getElementById('expiration-date');
+    const setPriceElement = document.getElementById('set-price').querySelector('span');
+    const confirmBuySetButton = document.getElementById('confirm-buy-set');
+    let selectedSetImage = '';
+    let selectedSetPrice = '';
+    let promoCode = '';
+    let expirationDate = '';
 
     let balance = 0;
     const storedBalance = parseInt(localStorage.getItem('balance')) || 0;
@@ -138,6 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
             linkModal.style.display = 'none';
         } else if (event.target == menuModal) {
             menuModal.style.display = 'none';
+        } else if (event.target == buySetModal) {
+            buySetModal.style.display = 'none';
         }
     });
 
@@ -147,6 +157,69 @@ document.addEventListener('DOMContentLoaded', function() {
     photoContainers.forEach(container => {
         container.addEventListener('click', function() {
             container.classList.toggle('enlarged');
+
+            if (container.classList.contains('enlarged')) {
+                // Display the buy set button
+                const buyButton = document.createElement('button');
+                buyButton.innerText = 'Գնել Սեթը';
+                buyButton.className = 'buy-set-button';
+                container.appendChild(buyButton);
+
+                buyButton.addEventListener('click', function() {
+                    selectedSetImage = container.querySelector('img').src;
+                    selectedSetPrice = container.querySelector('.caption').innerText;
+                    buySetModal.style.display = 'block';
+                    // Update modal with selected set details
+                    buySetModal.querySelector('.modal-content').innerHTML = `
+                        <h2>Գնել Սեթը</h2>
+                        <p>1 զեղչի կտրոնը - <img src="coin.png" alt=""> 5000</p>
+                        <img src="${selectedSetImage}" alt="Selected Set" style="width: 150px; height: 150px;">
+                        <button id="confirm-buy-set" class="confirm-button">Հաստատել</button>
+                        <button class="close-button close-button-buy-set">&times;</button>
+                    `;
+                    document.querySelector('.close-button-buy-set').addEventListener('click', function() {
+                        buySetModal.style.display = 'none';
+                    });
+                    document.getElementById('confirm-buy-set').addEventListener('click', confirmPurchase);
+                });
+            } else {
+                // Remove the buy set button
+                const buyButton = container.querySelector('.buy-set-button');
+                if (buyButton) {
+                    container.removeChild(buyButton);
+                }
+            }
         });
+    });
+
+    function confirmPurchase() {
+        if (balance >= 5000) {
+            balance -= 5000;
+            balanceElement.textContent = balance;
+            localStorage.setItem('balance', balance); // Save balance to localStorage
+
+            // Generate promo code and expiration date
+            promoCode = generateRandomPromoCode();
+            expirationDate = calculateExpirationDate();
+
+            // Update modal content with purchase details
+            buySetModal.querySelector('.modal-content').innerHTML = `
+                <h2>Կտրոն</h2>
+                <p>1 զեղչի կտրոնը - <img src="coin.png" alt=""> 5000</p>
+                <img src="${selectedSetImage}" alt="Purchased Set" style="width: 150px; height: 150px;">
+                <p>( Промо-код ): ${promoCode}</p>
+                <p>կտրոնի վավերականության ժամկետը: ${expirationDate}</p>
+                <button class="close-button close-button-buy-set">&times;</button>
+            `;
+            document.querySelector('.close-button-buy-set').addEventListener('click', function() {
+                buySetModal.style.display = 'none';
+            });
+        } else {
+            alert('հաշվին չկա բավարար միավոր.');
+        }
+    }
+
+    closeButtonBuySet.addEventListener('click', function() {
+        buySetModal.style.display = 'none';
     });
 });
