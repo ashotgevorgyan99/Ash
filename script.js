@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         balanceElement.textContent = balance;
     }
 
-    const cooldownTime = 10;
+    const cooldownTime = 1;
     let cooldownInterval;
 
     // Check and apply the remaining cooldown time on page load
