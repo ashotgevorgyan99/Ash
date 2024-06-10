@@ -13,6 +13,7 @@ body {
 }
 
 .game-container {
+
     text-align: center;
     background-color: rgba(44, 62, 80, 0.9); /* Полупрозрачный темно-синий */
     padding: 20px;
@@ -218,9 +219,36 @@ h2 {
 
 a {
     color: #ecf0f1;
+    
+    text-decoration: none;
 }
 
 
 
+/* News Modal Styles */
+#news-modal .news-content {
+    text-align: left;
+}
 
+#news-modal .news-item {
+    margin-bottom: 20px;
+}
+
+#news-modal .news-item img,
+#news-modal .news-item video {
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+#news-modal .news-item h3 {
+    color: #e67e22; /* Оранжевый цвет заголовков */
+    font-weight: bold;
+    text-shadow: 
+        -1px -1px 0 #2c3e50,  
+         1px -1px 0 #2c3e50,
+        -1px  1px 0 #2c3e50,
+         1px  1px 0 #2c3e50;
+}
 
