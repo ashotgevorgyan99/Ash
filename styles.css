@@ -22,28 +22,40 @@ body {
 }
 
 .balance {
+   font-size: 20px;
     font-weight: bold;
-    border: 3px ridge rgba(236, 240, 241, 0.3); /* Полупрозрачный светлый цвет */
-    margin: 10px 0;
-    font-size: 18px;
-    text-shadow: 
-        -1px -1px 0 #2c3e50,  
-         1px -1px 0 #2c3e50,
-        -1px  1px 0 #2c3e50,
-         1px  1px 0 #2c3e50; /* Темные тени */
+    color:  #2D3E50; /* Light blue color for the numbers */
+     font-weight: bold;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; /* Темные тени */
+    font-weight: bold;
+    border: 3px ridge rgba(236, 240, 241, 0.30); 
 }
 
-.cooldown {
-    color: #e74c3c; /* Красный цвет */
-    font-weight: bold;
-    font-family: sans-serif;
-    border: 3px ridge rgba(236, 240, 241, 0.3);
-    margin: 10px 0;
-    text-shadow: 
-        -1px -1px 0 #2c3e50,  
-         1px -1px 0 #2c3e50,
-        -1px  1px 0 #2c3e50,
-         1px  1px 0 #2c3e50;
+
+.loading-bar {
+    width: 100%;
+    background-color: #e0e0e0;
+    border: 1px solid #000;
+    position: relative;
+    height: 20px;
+}
+
+.loading-progress {
+    width: 0;
+    height: 100%;
+    background-color: #530011;
+    text-align: center;
+    line-height: 20px;
+    color: ##ff001f; /* Fully transparent text color */
+    position: absolute;
+    text-shadow:
+        0 0 5px #ff001f, /* Blue neon outline */
+        0 0 10px #ff001f,
+        0 0 15px #ff001f,
+        0 0 20px #ff001f,
+        0 0 25px #ff001f,
+        0 0 30px #ff001f,
+        0 0 35px #a400ff;
 }
 
 #clickable-image {
@@ -316,7 +328,7 @@ a:hover {
     font-weight: bold;
     color:  #2D3E50; /* Light blue color for the numbers */
      font-weight: bold;
-    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; /* Neon glow effect */
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;b /* Neon glow effect */
     -webkit-text-stroke: 1px #000; 
 }
 
