@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let balance = parseInt(localStorage.getItem('balance')) || 0;
     balanceElement.textContent = balance;
 
-    const cooldownTime = 100;
+    const cooldownTime = 100;//<- Ժամանակը փոփոխելու տեղ համար 1:
     let cooldownInterval;
 
     // Check and apply the remaining cooldown time on page load
@@ -75,15 +75,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function calculateExpirationDate() {
         const currentDate = new Date();
-        currentDate.setDate(currentDate.getDate() + 3);
+        currentDate.setDate(currentDate.getDate() + 3);//Կտրոնի վավերականության ժամկետը փոփոխելու տեղ։
         return currentDate.toISOString().split('T')[0];
     }
     
     
     function buyCoupon() {
         if (balance >= 100) {
-            updateBalance(-100);
-            const discount = Math.floor(Math.random() * 16) + 5;
+            updateBalance(-100);//Կտրոնի արժեքը փոփոխելու տեղ։
+            const discount = Math.floor(Math.random() * 16) + 5;//Զեղչը փոփոխելու տեղ։
             const promoCode = generateRandomPromoCode();
             const expirationDate = calculateExpirationDate();
             discountElement.textContent = discount;
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function confirmPurchase() {
         if (balance >= 1000) {
-            updateBalance(-1000);
+            updateBalance(-1000);//Սեթի արժեքը փոփոխելու տեղ։
 
             // Generate promo code and expiration date
             promoCode = generateRandomPromoCode();
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    const cooldownTimeSpin = 3 * 60 * 60 * 1000; // 3 hours in milliseconds
+    const cooldownTimeSpin = 3 * 60 * 60 * 1000; //Սլոտի ժամանակը փոփոխելու տեղ։
     let lastClickTimestampSpin = parseInt(localStorage.getItem('lastClickTimestampSpin')) || 0;
 
     function updateTimer() {
@@ -329,4 +329,59 @@ window.onclick = function(event) {
     if (event.target == newsModal) {
         newsModal.style.display = "none";
     }
-                        }
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const clickableImage = document.getElementById('clickable-image');
+    const balanceElement = document.getElementById('balance');
+    const loadingProgressElement = document.getElementById('loading-progress');
+
+    let balance = parseInt(localStorage.getItem('balance')) || 0;
+    balanceElement.textContent = balance;
+
+    const cooldownTime = 100; // <- Ժամանակը փոփոխելու տեղ համար 2:
+    let cooldownInterval;
+
+    // Check and apply the remaining cooldown time on page load
+    const lastClickTimestamp = parseInt(localStorage.getItem('lastClickTimestamp'));
+    if (lastClickTimestamp) {
+        const currentTime = Date.now();
+        const elapsedTime = Math.floor((currentTime - lastClickTimestamp) / 1000);
+        if (elapsedTime < cooldownTime) {
+            startCooldown(cooldownTime - elapsedTime);
+        }
+    }
+
+    function updateBalance(amount) {
+        balance += amount;
+        balanceElement.textContent = balance;
+        localStorage.setItem('balance', balance); // Save balance to localStorage
+    }
+
+    function startCooldown(remainingTime) {
+        clickableImage.classList.add('clicked');
+        clickableImage.style.pointerEvents = 'none';
+
+        cooldownInterval = setInterval(function() {
+            remainingTime--;
+            let percentage = ((cooldownTime - remainingTime) / cooldownTime) * 100;
+            loadingProgressElement.style.width = percentage + '%';
+            loadingProgressElement.textContent = remainingTime;
+
+            if (remainingTime <= 0) {
+                clearInterval(cooldownInterval);
+                clickableImage.classList.remove('clicked');
+                clickableImage.style.pointerEvents = 'auto';
+                loadingProgressElement.style.width = '0%';
+                loadingProgressElement.textContent = '';
+            }
+        }, 1000);
+    }
+
+    clickableImage.addEventListener('click', function() {
+        updateBalance(1);//<- Միավորները ավելացնելու տեղ:
+        startCooldown(cooldownTime);
+        localStorage.setItem('lastClickTimestamp', Date.now()); // Save the current timestamp to localStorage
+    });
+});
