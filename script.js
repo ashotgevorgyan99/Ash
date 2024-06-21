@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeButtonBuySet = document.querySelector('.close-button-buy-set');
     const clickableImage = document.getElementById('clickable-image');
     const balanceElement = document.getElementById('balance');
-    const cooldownElement = document.getElementById('cooldown');
+    const cooldownElement = document.querySelector('.cooldown');
     const buyCouponButton = document.getElementById('buy-coupon');
     const discountCard = document.getElementById('discount-card');
     const discountElement = document.getElementById('discount');
@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const expirationDateElement = document.getElementById('expiration-date');
     const setPriceElement = document.getElementById('set-price').querySelector('span');
     const confirmBuySetButton = document.getElementById('confirm-buy-set');
+    const loadingProgressElement = document.getElementById('loading-progress');
     let selectedSetImage = '';
     let selectedSetPrice = '';
     let promoCode = '';
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let balance = parseInt(localStorage.getItem('balance')) || 0;
     balanceElement.textContent = balance;
 
-    const cooldownTime = 100;//<- Ժամանակը փոփոխելու տեղ համար 1:
+    const cooldownTime = 100; // <- Ժամանակը փոփոխելու տեղ համար 1:
     let cooldownInterval;
 
     // Check and apply the remaining cooldown time on page load
@@ -53,13 +54,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         cooldownInterval = setInterval(function() {
             remainingTime--;
-            cooldownElement.textContent = remainingTime;
+            const percentage = ((cooldownTime - remainingTime) / cooldownTime) * 100;
+            loadingProgressElement.style.width = percentage + '%';
+            loadingProgressElement.textContent = remainingTime;
 
             if (remainingTime <= 0) {
                 clearInterval(cooldownInterval);
                 clickableImage.classList.remove('clicked');
                 clickableImage.style.pointerEvents = 'auto';
-                cooldownElement.textContent = cooldownTime;
+                loadingProgressElement.style.width = '0%';
+                loadingProgressElement.textContent = '';
             }
         }, 1000);
     }
@@ -75,15 +79,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function calculateExpirationDate() {
         const currentDate = new Date();
-        currentDate.setDate(currentDate.getDate() + 3);//Կտրոնի վավերականության ժամկետը փոփոխելու տեղ։
+        currentDate.setDate(currentDate.getDate() + 3); // Կտրոնի վավերականության ժամկետը փոփոխելու տեղ:
         return currentDate.toISOString().split('T')[0];
     }
-    
-    
+
     function buyCoupon() {
         if (balance >= 100) {
-            updateBalance(-100);//Կտրոնի արժեքը փոփոխելու տեղ։
-            const discount = Math.floor(Math.random() * 16) + 5;//Զեղչը փոփոխելու տեղ։
+            updateBalance(-100); // Կտրոնի արժեքը փոփոխելու տեղ:
+            const discount = Math.floor(Math.random() * 16) + 5; // Զեղչը փոփոխելու տեղ:
             const promoCode = generateRandomPromoCode();
             const expirationDate = calculateExpirationDate();
             discountElement.textContent = discount;
@@ -96,16 +99,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     buyCouponButton.addEventListener('click', buyCoupon);
-    
-    
+
     clickableImage.addEventListener('click', function() {
-        updateBalance(1);
+        updateBalance(1); // Միավորները ավելացնելու տեղ:
         startCooldown(cooldownTime);
         localStorage.setItem('lastClickTimestamp', Date.now()); // Save the current timestamp to localStorage
     });
-    
-    
-    
+
     couponButton.addEventListener('click', function() {
         couponModal.style.display = 'block';
     });
@@ -141,8 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
             buySetModal.style.display = 'none';
         }
     });
-    
-    
+
     // Enlarge images in the menu modal when clicked
     const photoContainers = document.querySelectorAll('.photo-container');
 
@@ -186,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function confirmPurchase() {
         if (balance >= 1000) {
-            updateBalance(-1000);//Սեթի արժեքը փոփոխելու տեղ։
+            updateBalance(-1000); // Սեթի արժեքը փոփոխելու տեղ:
 
             // Generate promo code and expiration date
             promoCode = generateRandomPromoCode();
@@ -209,92 +208,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-   closeButtonBuySet.addEventListener('click', function() {
+    closeButtonBuySet.addEventListener('click', function() {
         buySetModal.style.display = 'none';
     });
 
+    // Get the modal
+    var newsModal = document.getElementById("news-modal");
 
-});
-
-// Get the modal
-var newsModal = document.getElementById("news-modal");
-
-// Get the button that opens the modal
-var newsBtn = document.getElementById("news-modal-button");
+    // Get the button that opens the modal
+    var newsBtn = document.getElementById("news-modal-button");
 
 // Get the <span> element that closes the modal
-var closeNewsButton = document.getElementsByClassName("close-button-news")[0];
+    var closeNewsButton = document.getElementsByClassName("close-button-news")[0];
 
-// When the user clicks the button, open the modal 
-newsBtn.onclick = function() {
-    newsModal.style.display = "block";
-}
+    // When the user clicks the button, open the modal 
+    newsBtn.onclick = function() {
+        newsModal.style.display = "block";
+    }
 
-// When the user clicks on <span> (x), close the modal
-closeNewsButton.onclick = function() {
-    newsModal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == newsModal) {
+    // When the user clicks on <span> (x), close the modal
+    closeNewsButton.onclick = function() {
         newsModal.style.display = "none";
     }
-}
 
-
-document.addEventListener('DOMContentLoaded', function() {
-    const clickableImage = document.getElementById('clickable-image');
-    const balanceElement = document.getElementById('balance');
-    const loadingProgressElement = document.getElementById('loading-progress');
-
-    let balance = parseInt(localStorage.getItem('balance')) || 0;
-    balanceElement.textContent = balance;
-
-    const cooldownTime = 100; // <- Ժամանակը փոփոխելու տեղ համար 2:
-    let cooldownInterval;
-
-    // Check and apply the remaining cooldown time on page load
-    const lastClickTimestamp = parseInt(localStorage.getItem('lastClickTimestamp'));
-    if (lastClickTimestamp) {
-        const currentTime = Date.now();
-        const elapsedTime = Math.floor((currentTime - lastClickTimestamp) / 1000);
-        if (elapsedTime < cooldownTime) {
-            startCooldown(cooldownTime - elapsedTime);
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == newsModal) {
+            newsModal.style.display = "none";
         }
     }
-
-    function updateBalance(amount) {
-        balance += amount;
-        balanceElement.textContent = balance;
-        localStorage.setItem('balance', balance); // Save balance to localStorage
-    }
-
-    function startCooldown(remainingTime) {
-        clickableImage.classList.add('clicked');
-        clickableImage.style.pointerEvents = 'none';
-
-        cooldownInterval = setInterval(function() {
-            remainingTime--;
-            let percentage = ((cooldownTime - remainingTime) / cooldownTime) * 100;
-            loadingProgressElement.style.width = percentage + '%';
-            loadingProgressElement.textContent = remainingTime;
-
-            if (remainingTime <= 0) {
-                clearInterval(cooldownInterval);
-                clickableImage.classList.remove('clicked');
-                clickableImage.style.pointerEvents = 'auto';
-                loadingProgressElement.style.width = '0%';
-                loadingProgressElement.textContent = '';
-            }
-        }, 1000);
-    }
-
-    clickableImage.addEventListener('click', function() {
-        updateBalance(1); // <- Միավորները ավելացնելու տեղ:
-        startCooldown(cooldownTime);
-        localStorage.setItem('lastClickTimestamp', Date.now()); // Save the current timestamp to localStorage
-    });
 
     // Setup for the spin functionality
     const spinImage = document.getElementById('spinning-image');
@@ -386,4 +328,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         updateTimer();
     });
+
+    // Function to handle click event on clickable image
+    clickableImage.addEventListener('click', function() {
+        updateBalance(0); // Increase balance by 1 point per click
+         // Save the current timestamp to localStorage
+    });
+
+    // Initial update of balance from local storage
+    balanceElement.textContent = balance;
 });
+    
