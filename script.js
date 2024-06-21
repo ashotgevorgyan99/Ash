@@ -213,96 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buySetModal.style.display = 'none';
     });
 
-    //Rest of the setup for the spin functionality
-    const spinImage = document.getElementById('spinning-image');
-    const spinModal = document.getElementById('spin-modal');
-    const closeSpinButton = document.querySelector('.close-button-spin');
-    const startButton = document.getElementById('start-button');
-    const number1Element = document.getElementById('number1');
-    const number2Element = document.getElementById('number2');
-    const number3Element = document.getElementById('number3');
-    const messageElement = document.getElementById('message');
-    const timerElement = document.getElementById('timer');
-    const timeRemainingElement = document.getElementById('time-remaining');
 
-    spinImage.addEventListener('click', function() {
-        spinModal.style.display = 'block';
-    });
-
-    closeSpinButton.addEventListener('click', function() {
-        spinModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target == spinModal) {
-            spinModal.style.display = 'none';
-        }
-    });
-
-    const cooldownTimeSpin = 3 * 60 * 60 * 1000; //Սլոտի ժամանակը փոփոխելու տեղ։
-    let lastClickTimestampSpin = parseInt(localStorage.getItem('lastClickTimestampSpin')) || 0;
-
-    function updateTimer() {
-        const currentTime = Date.now();
-        const elapsedTime = currentTime - lastClickTimestampSpin;
-        const remainingTime = cooldownTimeSpin - elapsedTime;
-
-        if (remainingTime > 0) {
-            startButton.disabled = true;
-            const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-            timeRemainingElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-            const percentage = (elapsedTime / cooldownTimeSpin) * 100;
-            timerElement.style.background = `conic-gradient(#3498db ${percentage}%, #ecf0f1 ${percentage}%)`;
-        } else {
-            startButton.disabled = false;
-            timeRemainingElement.textContent = '00:00:00';
-            timerElement.style.background = '#3498db';
-        }
-    }
-
-    setInterval(updateTimer, 1000);
-
-    startButton.addEventListener('click', function() {
-        const currentTime = Date.now();
-        lastClickTimestampSpin = currentTime;
-        localStorage.setItem('lastClickTimestampSpin', lastClickTimestampSpin);
-
-        const probability = Math.random();
-        let num1, num2, num3;
-
-        if (probability < 0.2) {
-            // 20% chance to match
-            num1 = num2 = num3 = Math.floor(Math.random() * 10);
-        } else {
-            // 80% chance to not match
-            num1 = Math.floor(Math.random() * 10);
-            num2 = Math.floor(Math.random() * 10);
-            num3 = Math.floor(Math.random() * 10);
-            // Ensure numbers do not match
-            while (num1 === num2) {
-                num2 = Math.floor(Math.random() * 10);
-            }
-            while (num1 === num3 || num2 === num3) {
-                num3 = Math.floor(Math.random() * 10);
-            }
-        }
-
-        number1Element.textContent = num1;
-        number2Element.textContent = num2;
-        number3Element.textContent = num3;
-
-        if (num1 === num2 && num2 === num3) {
-            updateBalance(30); // Add 50 points to the balance
-            messageElement.textContent = 'Դուք Շահեցիք 30 միավոր';
-        } else {
-            messageElement.textContent = 'Փորձեք կրկին';
-        }
-
-        updateTimer();
-    });
 });
 
 // Get the modal
@@ -380,8 +291,99 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     clickableImage.addEventListener('click', function() {
-        updateBalance(1);//<- Միավորները ավելացնելու տեղ:
+        updateBalance(1); // <- Միավորները ավելացնելու տեղ:
         startCooldown(cooldownTime);
         localStorage.setItem('lastClickTimestamp', Date.now()); // Save the current timestamp to localStorage
+    });
+
+    // Setup for the spin functionality
+    const spinImage = document.getElementById('spinning-image');
+    const spinModal = document.getElementById('spin-modal');
+    const closeSpinButton = document.querySelector('.close-button-spin');
+    const startButton = document.getElementById('start-button');
+    const number1Element = document.getElementById('number1');
+    const number2Element = document.getElementById('number2');
+    const number3Element = document.getElementById('number3');
+    const messageElement = document.getElementById('message');
+    const timerElement = document.getElementById('timer');
+    const timeRemainingElement = document.getElementById('time-remaining');
+
+    spinImage.addEventListener('click', function() {
+        spinModal.style.display = 'block';
+    });
+
+    closeSpinButton.addEventListener('click', function() {
+        spinModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target == spinModal) {
+            spinModal.style.display = 'none';
+        }
+    });
+
+    const cooldownTimeSpin = 0 * 60 * 60 * 1000; // Սլոտի ժամանակը փոփոխելու տեղ:
+    let lastClickTimestampSpin = parseInt(localStorage.getItem('lastClickTimestampSpin')) || 0;
+
+    function updateTimer() {
+        const currentTime = Date.now();
+        const elapsedTime = currentTime - lastClickTimestampSpin;
+        const remainingTime = cooldownTimeSpin - elapsedTime;
+
+        if (remainingTime > 0) {
+            startButton.disabled = true;
+            const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+            timeRemainingElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+            const percentage = (elapsedTime / cooldownTimeSpin) * 100;
+            timerElement.style.background = `conic-gradient(#3498db ${percentage}%, #ecf0f1 ${percentage}%)`;
+        } else {
+            startButton.disabled = false;
+            timeRemainingElement.textContent = '00:00:00';
+            timerElement.style.background = '#3498db';
+        }
+    }
+
+    setInterval(updateTimer, 1000);
+
+    startButton.addEventListener('click', function() {
+        const currentTime = Date.now();
+        lastClickTimestampSpin = currentTime;
+        localStorage.setItem('lastClickTimestampSpin', lastClickTimestampSpin);
+
+        const probability = Math.random();
+        let num1, num2, num3;
+
+        if (probability < 0.2) {
+            // 20% chance to match
+            num1 = num2 = num3 = Math.floor(Math.random() * 10);
+        } else {
+            // 80% chance to not match
+            num1 = Math.floor(Math.random() * 10);
+            num2 = Math.floor(Math.random() * 10);
+            num3 = Math.floor(Math.random() * 10);
+            // Ensure numbers do not match
+            while (num1 === num2) {
+                num2 = Math.floor(Math.random() * 10);
+            }
+            while (num1 === num3 || num2 === num3) {
+                num3 = Math.floor(Math.random() * 10);
+            }
+        }
+
+        number1Element.textContent = num1;
+        number2Element.textContent = num2;
+        number3Element.textContent = num3;
+
+        if (num1 === num2 && num2 === num3) {
+            updateBalance(30); // Add 30 points to the balance
+            messageElement.textContent = 'Դուք Շահեցիք 30 միավոր';
+        } else {
+            messageElement.textContent = 'Փորձեք կրկին';
+        }
+
+        updateTimer();
     });
 });
