@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const setPriceElement = document.getElementById('set-price').querySelector('span');
     const confirmBuySetButton = document.getElementById('confirm-buy-set');
     const loadingProgressElement = document.getElementById('loading-progress');
+    const historyContent = document.getElementById('history-content');
+    const historyButton = document.getElementById('history-button');
+    const historyModal = document.getElementById('history-modal');
+    const closeHistoryButton = document.getElementsByClassName('close-button-history')[0];
+
     let selectedSetImage = '';
     let selectedSetPrice = '';
     let promoCode = '';
@@ -83,6 +88,42 @@ document.addEventListener('DOMContentLoaded', function() {
         return currentDate.toISOString().split('T')[0];
     }
 
+    function addHistoryEntry(entry) {
+        const history = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+        history.push(entry);
+        localStorage.setItem('purchaseHistory', JSON.stringify(history));
+    }
+
+    function displayHistory() {
+        historyContent.innerHTML = '';
+        const history = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+        history.forEach((entry, index) => {
+            const entryElement = document.createElement('div');
+            entryElement.classList.add('history-entry');
+            entryElement.innerHTML = `
+                <p>${entry.text}</p>
+                ${entry.image ? `<img src="${entry.image}" alt="Purchased Set">` : ''}
+                <button class="delete-button" data-index="${index}">Ջնջել</button>
+            `;
+            historyContent.appendChild(entryElement);
+        });
+
+        // Add event listeners to delete buttons
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = this.getAttribute('data-index');
+                deleteHistoryEntry(index);
+            });
+        });
+    }
+
+    function deleteHistoryEntry(index) {
+        const history = JSON.parse(localStorage.getItem('purchaseHistory')) || [];
+        history.splice(index, 1);
+        localStorage.setItem('purchaseHistory', JSON.stringify(history));
+        displayHistory();
+    }
+
     function buyCoupon() {
         if (balance >= 100) {
             updateBalance(-100); // Կտրոնի արժեքը փոփոխելու տեղ:
@@ -93,6 +134,9 @@ document.addEventListener('DOMContentLoaded', function() {
             promoCodeElement.textContent = promoCode;
             expirationDateElement.textContent = expirationDate;
             discountCard.classList.remove('hidden');
+
+            // Ավելացնել պատմության մեջ
+            addHistoryEntry({ text: `Գնվել է կտրոն - զեղչ ${discount}%, պրոմո-կոդ: ${promoCode}, վավերականություն: ${expirationDate}`, image: '' });
         } else {
             alert('հաշվին չկա բավարար միջոցներ.');
         }
@@ -196,12 +240,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h2>Կտրոն</h2>
                 <p>դուք ունեք 40% զեղչ տվյալ սեթի համար </p>
                 <img src="${selectedSetImage}" alt="Purchased Set" style="width: 150px; height: 150px;">
-                <p>( Промо-код ): ${promoCode}</p>
+                <p>( Պրոմո-կոդ ): ${promoCode}</p>
                 <p>կտրոնի վավերականության ժամկետը: ${expirationDate}</p>
                 <button class="close-button close-button-buy-set">&times;</button>
             `;
             document.querySelector('.close-button-buy-set').addEventListener('click', function() {
                 buySetModal.style.display = 'none';
+            });
+
+            // Ավելացնել պատմության մեջ
+            addHistoryEntry({
+                text: `Գնվել է սեթ - զեղչ 40%, պրոմո-կոդ: ${promoCode}, վավերականություն: ${expirationDate}`,
+                image: selectedSetImage
             });
         } else {
             alert('հաշվին չկա բավարար միավոր.');
@@ -218,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get the button that opens the modal
     var newsBtn = document.getElementById("news-modal-button");
 
-// Get the <span> element that closes the modal
+    // Get the <span> element that closes the modal
     var closeNewsButton = document.getElementsByClassName("close-button-news")[0];
 
     // When the user clicks the button, open the modal 
@@ -329,13 +379,22 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTimer();
     });
 
-    // Function to handle click event on clickable image
-    clickableImage.addEventListener('click', function() {
-        updateBalance(0); // Increase balance by 1 point per click
-         // Save the current timestamp to localStorage
-    });
-
     // Initial update of balance from local storage
     balanceElement.textContent = balance;
+
+    // Պատմություն մոդալի կոդը
+    historyButton.onclick = function() {
+        displayHistory();
+        historyModal.style.display = 'block';
+    }
+
+    closeHistoryButton.onclick = function() {
+        historyModal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == historyModal) {
+            historyModal.style.display = 'none';
+        }
+    }
 });
-    
