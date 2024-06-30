@@ -7,85 +7,63 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
-    
-    
-    
-    
-  
-  
-    
-   
-   
- 
- 
-<!-- Spinning image container -->
-<div class="spin-container">
-    <img id="spinning-image" src="Spin.png" alt="Spinning Image">
-</div>
+    <!-- Existing content here -->
 
-<!-- Existing content here -->
+    <!-- Spinning image container -->
+    <div class="spin-container">
+        <img id="spinning-image" src="Spin.png" alt="Spinning Image">
+    </div>
 
-<!-- Spinning Image Modal -->
-<div id="spin-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-button close-button-spin">&times;</span>
-        <h2>Win Slot</h2>
-        <div id="slot-machine-container">
-            <div id="slot-machine">
-                <div class="slot">
-                    <span id="number1">7</span>
+    <!-- Existing content here -->
+
+    <!-- Spinning Image Modal -->
+    <div id="spin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button close-button-spin">&times;</span>
+            <h2>Win Slot</h2>
+            <div id="slot-machine-container">
+                <div id="slot-machine">
+                    <div class="slot">
+                        <span id="number1">7</span>
+                    </div>
+                    <div class="slot">
+                        <span id="number2">7</span>
+                    </div>
+                    <div class="slot">
+                        <span id="number3">7</span>
+                    </div>
                 </div>
-                <div class="slot">
-                    <span id="number2">7</span>
-                </div>
-                <div class="slot">
-                    <span id="number3">7</span>
+            </div>
+            <button id="start-button">Start</button>
+            <p id="message"></p>
+            <div id="timer-container">
+                <div id="timer">
+                    <div id="time-remaining">00:00:00</div>
                 </div>
             </div>
         </div>
-        <button id="start-button">Start</button>
-        <p id="message"></p>
-        <div id="timer-container">
-            <div id="timer">
-                <div id="time-remaining">00:00:00</div>
-            </div>
+    </div>
+
+    <div class="game-container">
+        <div class="balance">Kitshune հաշիվ <br><img src="coin.png" alt="">
+        <span id="balance">0</span></div>
+        <img id="clickable-image" src="kitshune.png" alt="Click Me">
+
+        <div class="cooldown">Loading...
+        <div id="loading-bar" class="loading-bar">
+            <div id="loading-progress" class="loading-progress"></div>
         </div>
     </div>
-</div>
-
-    
-
-    
-      
-
-
-   <div class="game-container">
-    <div class="balance">Kitshune հաշիվ <br><img src="coin.png" alt="">
-    <span id="balance">0</span></div>
-    <img id="clickable-image" src="kitshune.png" alt="Click Me">
-    
-    <div class="cooldown">Loading...
-    <div id="loading-bar" class="loading-bar">
-        <div id="loading-progress" class="loading-progress"></div>
+        <div class="buttons">
+            <button id="coupons">Կտրոն</button>
+            <button id="menu">Մենյու</button>
+            <button id="news-modal-button">Նորություններ</button>
+            <button id="links">Կապ</button>
+            <button id="history-button">Պատմություն</button>
+            <br><br>
+            <a href="clicker.html">խաղի կանոնները</a>
+        </div>
     </div>
-</div>
-    <div class="buttons">
-        <button id="coupons">Կտրոն</button>
-        <button id="menu">Մենյու</button>
-        <button id="news-modal-button">Նորություններ</button>
-        <button id="links">Կապ</button>
-        <br><br>
-        <a href="clicker.html">խաղի կանոնները</a>
-    </div>
-</div>
-   
-
-    
-    
-    
-    
- 
 
     <!-- Coupon Modal -->
     <div id="coupon-modal" class="modal">
@@ -102,77 +80,50 @@
         </div>
     </div>
 
-   
-       <!-- Link Modal -->
+    <!-- Link Modal -->
     <div id="link-modal" class="modal">
         <div class="modal-content">
             <span class="close-button close-button-link">&times;</span>
             <h2>Կապ մեզ հետ</h2>
-            
-            <div class="contact-details">
-                
-                <p><img src="Time.png" alt="Time"> Երկ. - Կիր. 12:00 - 22:00</p>
-                
-                <p><img src="location.png" alt="Location"> <a href="https://maps.app.goo.gl/9dyDbekFFBDducBa6">հասցե ք. Արտաշատ Օգոստոսի 23/119</a> </p>
-                
-                <p><img src="phone.png" alt="Phone"> +374 (44) 23 99 99</p>
-                <p><img src="whatsapp.png" alt="WhatsApp"> +374 (44) 23 99 99</p>
-                <p><img src="viber.png" alt="Viber"> +374 (44) 23 99 99</p>
-                <p><img src="telegram.png" alt="Telegram"> +374 (44) 23 99 99</p>
-                
-                <p><img src="instagram.png" alt="Instagram"> <a href="https://www.instagram.com/_kitsune__sushi_?igsh=ZGZtNjdoNWZ0eXQw">_kitshune_shushi_</a> </p>
-                
-                <input type="text" id="invite-link" value="https://yourgameurl.com/invite?ref=your_unique_code" readonly>
-                
-                
-                
-                
-            </div>
-        </div>
-    </div>
-    
-  
-  <!-- News Modal -->
-<div id="news-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-button close-button-news">&times;</span>
-        <h2>Նորություններ</h2>
-        
-        <div class="news-content">
-        <div class="news-item">
-            
-         <video loop autoplay muted>
-                    <source src="news-video1.mp4" type="video/mp4">
-                    Ձեր զննարկիչը չի աջակցում տեսանյութերի։
-                </video>
-</html>    
-            
 
-        
-            
-                <h3>News</h3>
-                <p>Շատ շուտով կկարողանաք համտեսել , մեծ սիրով և ջերմությամբ պատրաստված այս գեղեցիկ ռոլլերը</p>
-                <img src="news-photo1.jpg" alt="News Photo 1">
-               
+            <div class="contact-details">
+                <p><img src="Time.png" alt="Time"> Երկ. - Կիր. 12:00 - 21:00</p>
+                <p><img src="location.png" alt="Location"> <a href="https://maps.app.goo.gl/9dyDbekFFBDducBa6">հասցե ք. Արտաշատ Օգոստոսի 23/119</a></p>
+                <p><img src="phone.png" alt="Phone"> +374 (77) 99 32 99</p>
+                <p><img src="whatsapp.png" alt="WhatsApp"> +374 (77) 99 32 99</p>
+                <p><img src="viber.png" alt="Viber"> +374 (77) 99 32 99</p>
+                <p><img src="telegram.png" alt="Telegram"> +374 (77) 99 32 99</p>
+                <p><img src="instagram.png" alt="Instagram"> <a href="https://www.instagram.com/_kitsune__sushi_?igsh=ZGZtNjdoNWZ0eXQw">_kitshune_shushi_</a></p>
+                <input type="text" id="invite-link" value="https://yourgameurl.com/invite?ref=your_unique_code" readonly>
             </div>
-            
-            <div class="news-item">
-                <h3>News</h3>
-                <p>Շուտով նոր տուփերով </p>
-                <img src="news-photo2.jpg" alt="News Photo 2">
-                
-                 
-            </div>
-            
-            <!-- Add more news items as needed -->
         </div>
-        
     </div>
-    
-</div>
-  
-  
-  
+
+    <!-- News Modal -->
+    <div id="news-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button close-button-news">&times;</span>
+            <h2>Նորություններ</h2>
+
+            <div class="news-content">
+                <div class="news-item">
+                    <video loop autoplay muted>
+                        <source src="news-video1.mp4" type="video/mp4">
+                        
+                    </video>
+                    <h3>News</h3>
+                    <p>Շատ շուտով կկարողանաք համտեսել , մեծ սիրով և ջերմությամբ պատրաստված այս գեղեցիկ ռոլլերը</p>
+                    <img src="news-photo1.jpg" alt="News Photo 1">
+                </div>
+
+                <div class="news-item">
+                    <h3>News</h3>
+                    <p>Շուտով նոր տուփերով </p>
+                    <img src="news-photo2.jpg" alt="News Photo 2">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Menu Modal -->
     <div id="menu-modal" class="modal">
@@ -182,7 +133,7 @@
             <div class="photos">
                 <div class="photo-container">
                     <img src="poto1.jpg" alt="Photo 1">
-                    <div class="caption">12.600 ֏ </div>
+                    <div class="caption">12.600 ֏</div>
                 </div>
                 <div class="photo-container">
                     <img src="poto2.jpg" alt="Photo 2">
@@ -220,7 +171,6 @@
                     <img src="poto10.jpg" alt="Photo 10">
                     <div class="caption">2.500 ֏</div>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -235,7 +185,17 @@
         </div>
     </div>
 
-    <script src="script.js">
-    </script>
+    <!-- Պատմություն Մոդալ -->
+    <div id="history-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button close-button-history">&times;</span>
+            <h2>Պատմություն</h2>
+            <div id="history-content">
+                <!-- Այստեղ կավելացվի պատմության պարունակությունը -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
     </html>
