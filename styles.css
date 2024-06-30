@@ -392,3 +392,41 @@ a:hover {
     text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; /* Neon glow effect */
     -webkit-text-stroke: 1px #000; /* Black outline for better visibility */
     }
+    
+    
+    
+   /* Պատմության պարունակությունը կոկիկ և գեղեցիկ տեսքով */
+.history-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #34495e;
+    border-radius: 5px;
+}
+
+.history-entry img {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+}
+
+.history-entry p {
+    margin: 0;
+    font-size: 14px;
+    color: #ecf0f1;
+}
+
+.delete-button {
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+    }
