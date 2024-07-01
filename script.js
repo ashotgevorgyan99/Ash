@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    const cooldownTimeSpin = 1 * 60 * 60 * 1000; // Սլոտի ժամանակը փոփոխելու տեղ:
+    const cooldownTimeSpin = 0 * 60 * 60 * 1000; // Սլոտի ժամանակը փոփոխելու տեղ:
     let lastClickTimestampSpin = parseInt(localStorage.getItem('lastClickTimestampSpin')) || 0;
 
     function updateTimer() {
